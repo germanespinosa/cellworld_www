@@ -9,7 +9,69 @@
 </head>
 <body>
 <div id="world" style="width: 800px;height: 800px">
-
 </div>
+
+<a href="#" onclick="start()">Beginning</a>
+<a href="#" onclick="previous()">Previous step</a>
+<a href="#" onclick="next()">Next step</a>
+<a href="#" onclick="finish()">End</a>
 </body>
+
+<script>
+
+    function loadEpisode(episode){
+        let div = document.getElementById("world");
+        map = new Map(episode);
+        render(map,div)
+    }
+    getEpisode( 0,
+                parameters.group,
+                parameters.world,
+                parameters.configuration,
+                parameters.episode,
+                parameters.step,
+                parameters.agent,
+                loadEpisode);
+
+    function next(){
+        map.episode.agent += 1;
+        if (map.episode.agent >= map.agent_count) {
+            map.episode.agent = 0;
+            map.episode.step += 1;
+        }
+        let div = document.getElementById("world");
+        map = new Map(map.episode);
+        render(map,div);
+    }
+
+    function previous(){
+        map.episode.agent -= 1;
+        if (map.episode.agent < 0) {
+            if (map.episode.step > 0) {
+                map.episode.agent = map.agent_count - 1;
+                map.episode.step -= 1;
+            }
+        }
+        let div = document.getElementById("world");
+        map = new Map(map.episode);
+        render(map,div);
+    }
+
+    function start(){
+        map.episode.agent = 0;
+        map.episode.step = 0;
+        let div = document.getElementById("world");
+        map = new Map(map.episode);
+        render(map,div);
+    }
+
+    function finish(){
+        map.episode.agent = 0;
+        map.episode.step = map.episode.trajectories.length - 1;
+        let div = document.getElementById("world");
+        map = new Map(map.episode);
+        render(map,div);
+    }
+
+</script>
 </html>

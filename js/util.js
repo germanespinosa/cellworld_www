@@ -46,11 +46,13 @@ function getWorld(world_name, callback){
     },"world", world_name);
 }
 
-function getEpisode(experiment, group, world, configuration, episode, callback){
+function getEpisode(experiment, group, world, configuration, episode, step, agent, callback){
     const episode_uri = "https://raw.githubusercontent.com/germanespinosa/cellworld_results/master/experiment_" + experiment + "/group_" + group + "/world_" + world + "/configuration_" + configuration +"/episode_" + episode + ".json";
     loadfile(episode_uri, function(episode) {
         getWorld(episode.world, function (world) {
             episode.world = world;
+            episode.step = parseInt(step);
+            episode.agent = parseInt(agent);
             callback(episode);
         });
     });
