@@ -52,12 +52,12 @@ function Map (
         if (cell.cell_type == 1) return "rect";
     };
     this.fillColor = function (cell) {
-        if (cell.occluded) return "black";
         for ( let a = 0; a < agent_count; a++ ){
             if ( equal(cell.coordinates, agent_locations[a]) ) {
                 return colors[a];
             }
         }
+        if (cell.occluded) return "black";
         if ( equal(cell.coordinates, episode.goal) ) {
             return "green";
         }

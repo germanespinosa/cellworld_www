@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src = "js/util.js"></script>
+</head>
+<body>
+<table id="problems">
+    <tr><td>problem</td><td>entropy</td><td>simulation</td><td>predator location</td><td>episode</td><td>link</td></tr>
+</table>
+</body>
+<script>
+
+    function load_problems_file(problems){
+        let table = document.getElementById("problems");
+
+        p = problems;
+
+        problem_types = Object.keys(problems);
+        for (let i=0; i<problem_types.length; i++){
+            p_type = problem_types[i];
+            for (let j=0; j<problems[p_type].length; j++) {
+                let row = table.insertRow(-1);
+                let cell1 = row.insertCell(-1);
+                cell1.innerHTML = p_type;
+                let cell2 = row.insertCell(-1);
+                cell2.innerHTML = problems[p_type][j][0]
+                let cell3 = row.insertCell(-1);
+                cell3.innerHTML = problems[p_type][j][1]
+                let cell4 = row.insertCell(-1);
+                cell4.innerHTML = problems[p_type][j][2]
+                let cell5 = row.insertCell(-1);
+                cell5.innerHTML = problems[p_type][j][3]
+                let cell6 = row.insertCell(-1);
+                cell6.innerHTML = "<a href='" + problems[p_type][j][4] + "'>link</a>";
+            }
+        }
+
+    }
+
+    loadfile("problems.json", load_problems_file);
+</script>
+</html>
